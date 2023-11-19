@@ -95,7 +95,7 @@ export default class Circle {
   }
 
   move(pixels:number){
-    this.radian -= pixels*0.002
+    this.radian -= pixels * 0.002 // magic number
   }
 
 }
