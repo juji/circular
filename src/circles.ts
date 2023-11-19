@@ -30,6 +30,7 @@ export default class Circles extends Canvas2d {
   ){
 
     super(canvas, width, height)
+
     this.context.translate(
       this.canvas.width/2,
       this.canvas.height/2
@@ -63,7 +64,7 @@ export default class Circles extends Canvas2d {
       this.canvas.width/2,
       this.canvas.height/2
     )
-    this.context.scale(
+    this.scale && this.context.scale(
       this.scale, this.scale
     )
   }
