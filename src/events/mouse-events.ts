@@ -13,15 +13,15 @@ export default class MouseEvents {
     onMouseDown,
     onMouseMove
   }:{
-    onMouseUp: (e:MouseEvent) => void
-    onMouseDown: (e:MouseEvent) => void
-    onMouseMove: (e:MouseEvent) => void
+    onMouseUp?: (e:MouseEvent) => void
+    onMouseDown?: (e:MouseEvent) => void
+    onMouseMove?: (e:MouseEvent) => void
   }){
 
     this.elm = elm
-    this.onMouseUp = onMouseUp
-    this.onMouseDown = onMouseDown
-    this.onMouseMove = onMouseMove
+    this.onMouseUp = onMouseUp??null
+    this.onMouseDown = onMouseDown??null
+    this.onMouseMove = onMouseMove??null
 
     let t = this
     let mouseMoveListener = (e:MouseEvent) => {
@@ -50,13 +50,13 @@ export default class MouseEvents {
       return false
     }
 
-    elm.addEventListener('mousedown', mouseDownListener)
-    elm.addEventListener('mouseup', mouseUpListener)
+    t.onMouseDown && elm.addEventListener('mousedown', mouseDownListener)
+    t.onMouseUp && elm.addEventListener('mouseup', mouseUpListener)
 
     this.clear = () => {
-      elm.removeEventListener('mousedown', mouseDownListener)
-      elm.removeEventListener('mouseup', mouseUpListener)
-      elm.removeEventListener('mousemove', mouseMoveListener)
+      t.onMouseDown && elm.removeEventListener('mousedown', mouseDownListener)
+      t.onMouseUp && elm.removeEventListener('mouseup', mouseUpListener)
+      t.onMouseMove && elm.removeEventListener('mousemove', mouseMoveListener)
     }
 
   }

@@ -3,53 +3,43 @@
 import './index.css'
 import './button.css'
 
-import Ball from './ball'
+// import Ball from './ball'
+// import Circular from './circular'
+import Circles from './circles'
 import { registerEvents } from './events'
-import { setLogoColor } from './set-logo-color'
-import { setButtonClick } from './button-click'
+import { ui } from './ui'
 
-setButtonClick()
-const logoDim = 89;
+
 const canvas = document.querySelector('canvas')
 
 if(canvas) {
-
+  
+  
   const footer = document.querySelector('footer') as HTMLElement
   const footerDim = footer.getBoundingClientRect()
-  let ball = new Ball(canvas,{
-    width: window.innerWidth,
-    height: window.innerHeight - footerDim.height
+  
+  let circles = new Circles(
+    canvas,
+    window.innerWidth,
+    window.innerHeight - footerDim.height
+  )
+    
+  ui({ 
+    zoomIn: () => circles.zoomIn(), 
+    zoomOut: () => circles.zoomOut()
   })
-
-  // change logo color when hit
-  let to: ReturnType<typeof setTimeout>|null;
-  ball.onMove = (x: number, y: number) => {
-    if(x <= logoDim && y <= logoDim){
-      if(to) {
-        clearTimeout(to)
-        to = setTimeout(() => {
-          to = null
-        },500)
-      }else{
-        to = setTimeout(() => {
-          to = null
-        },500)
-        setLogoColor()
-      }
-    }
-  }
 
   // const clear = 
   registerEvents(
-    ball,
+    circles,
     canvas
   )
 
   window.addEventListener('resize', () => {
-    ball.changeBoundingBox({
-      width: window.innerWidth,
-      height: window.innerHeight - footerDim.height
-    })
+    circles.resize(
+      window.innerWidth,
+      window.innerHeight - footerDim.height
+    )
   })
 
 }

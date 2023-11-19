@@ -19,9 +19,9 @@ export default class TouchEvents {
   }){
 
     this.elm = elm
-    this.onTouchUp = onTouchUp
-    this.onTouchDown = onTouchDown
-    this.onTouchMove = onTouchMove
+    this.onTouchUp = onTouchUp??null
+    this.onTouchDown = onTouchDown??null
+    this.onTouchMove = onTouchMove??null
 
     let t = this
     let mouseMoveListener = (e:TouchEvent) => {
@@ -33,8 +33,6 @@ export default class TouchEvents {
     }
 
     let mouseDownListener = (e:TouchEvent) => {
-      console.log(e.currentTarget)
-      console.log(e.target)
       if(e.currentTarget !== e.target) return;
       if(e.currentTarget !== elm) return;
       e.preventDefault()
@@ -52,15 +50,15 @@ export default class TouchEvents {
       return false
     }
 
-    elm.addEventListener('touchstart', mouseDownListener)
-    elm.addEventListener('touchend', mouseUpListener)
-    elm.addEventListener('touchcancel', mouseUpListener)
+    t.onTouchDown && elm.addEventListener('touchstart', mouseDownListener)
+    t.onTouchUp && elm.addEventListener('touchend', mouseUpListener)
+    t.onTouchUp && elm.addEventListener('touchcancel', mouseUpListener)
 
     this.clear = () => {
-      elm.removeEventListener('touchstart', mouseDownListener)
-      elm.removeEventListener('touchend', mouseUpListener)
-      elm.removeEventListener('touchcancel', mouseUpListener)
-      elm.removeEventListener('touchmove', mouseMoveListener)
+      t.onTouchDown && elm.removeEventListener('touchstart', mouseDownListener)
+      t.onTouchMove && elm.removeEventListener('touchmove', mouseMoveListener)
+      t.onTouchUp && elm.removeEventListener('touchend', mouseUpListener)
+      t.onTouchUp && elm.removeEventListener('touchcancel', mouseUpListener)
     }
 
   }

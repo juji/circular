@@ -1,30 +1,34 @@
 
 import MouseEvents from './mouse-events'
 import TouchEvents from './touch-events'
-import Ball from '../ball'
+import Circles from '../circles'
 
 export function registerEvents( 
-  ball: Ball,
+  circles: Circles,
   elm: HTMLElement 
 ){
+
+  let initMouse = 0
+  let initMouseDown = 0;
+  let currentMouse = 0
 
   if(window.matchMedia("(any-hover: none)").matches) {
     
     const touch = new TouchEvents(elm, {
       onTouchDown: (e:TouchEvent) => {
-        ball.slingShotInit(
-          e.touches[0].pageX,
-          e.touches[0].pageY
-        )
+        initMouse = currentMouse = e.touches[0].pageX
+        initMouseDown = new Date().valueOf()
+        circles.pause()
       },
       onTouchMove: (e:TouchEvent) => {
-        ball.slingShotPull(
-          e.touches[0].pageX,
-          e.touches[0].pageY
-        )
+        circles.move(e.touches[0].pageX - currentMouse)
+        currentMouse = e.touches[0].pageX
       },
       onTouchUp: () => {
-        ball.slingShotRelease()
+        circles.play(
+          (currentMouse - initMouse) / 
+          (new Date().valueOf() - initMouseDown)
+        )
       },
     })
 
@@ -34,22 +38,21 @@ export function registerEvents(
 
     const mouse = new MouseEvents(elm, {
       onMouseDown: (e:MouseEvent) => {
-        ball.slingShotInit(
-          e.pageX,
-          e.pageY
-        )
+        initMouse = currentMouse = e.pageX 
+        initMouseDown = new Date().valueOf()
+        circles.pause()
       },
       onMouseMove: (e:MouseEvent) => {
-        ball.slingShotPull(
-          e.pageX,
-          e.pageY
-        )
+        circles.move(e.pageX - currentMouse)
+        currentMouse = e.pageX
       },
       onMouseUp: (e:MouseEvent) => {
-        ball.slingShotRelease(
-          e.pageX,
-          e.pageY
+
+        circles.play(
+          (e.pageX - initMouse) / 
+          (new Date().valueOf() - initMouseDown)
         )
+
       },
     })
 

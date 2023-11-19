@@ -6,7 +6,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #121212;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -99,14 +99,6 @@ header svg{
   top: 21px;
   right: 21px;
   
-  & > button{
-    padding: 8px 21px;
-    font-size: 1rem;
-    border-radius: 3px;
-    border: none;
-    cursor: pointer;
-  }
-  
   & > .info-content{
     background: rgba(0,0,0,0.4);
     padding: 1rem 2rem;
@@ -131,6 +123,13 @@ header svg{
     }
 
   }
+}
+
+.zoom{
+  position: absolute;
+  z-index: 30;
+  bottom: 21px;
+  right: 21px;
 }
 
 
@@ -165,6 +164,6 @@ footer{
   background-color: #151515;
 
   & a{
-    color: #ff6363;
+    color: #67c56e;
   }
 }
