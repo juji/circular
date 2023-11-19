@@ -35,7 +35,7 @@ export default class Circles extends Canvas2d {
       this.canvas.height/2
     )
 
-    this.circles = [...new Array(1000)].map(v => {
+    this.circles = [...new Array(1000)].map(() => {
       const radiusX = Math.random() * Math.max(this.canvas.width/2,1000)
       return new Circle({
         initRadian: Math.random() * 9,
