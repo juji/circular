@@ -1,5 +1,5 @@
-# ball
+# Circular
 
-It'z a ball ....
+Circular motion, reminds me of space.
 
-[https://ball.jujiplay.com/](https://ball.jujiplay.com/)
+[https://circular.jujiplay.com/](https://circular.jujiplay.com/)
