@@ -137,6 +137,15 @@ export default class Circles extends Canvas2d {
 
   calculate(){
     
+    // calculate speed scale
+    if(this.speedScale !== 1 && this.speedScale !== -1){
+      const target = this.speedScale / Math.abs(this.speedScale)
+      this.speedScale += (target - this.speedScale) / 100
+      if(Math.abs(this.speedScale - target) < 0.01){
+        this.speedScale = target
+      }
+    }
+    
     //
     let num = 0
     while(num<this.circles.length){
@@ -146,14 +155,6 @@ export default class Circles extends Canvas2d {
       num++
     }
 
-    // calculate speed scale
-    if(this.speedScale !== 1 && this.speedScale !== -1){
-      const target = this.speedScale / Math.abs(this.speedScale)
-      this.speedScale += (target - this.speedScale) / 100
-      if(Math.abs(this.speedScale - target) < 0.01){
-        this.speedScale = target
-      }
-    }
 
     // calculate current scale
     if(this.targetScale !== this.currentScale){
