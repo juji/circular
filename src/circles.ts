@@ -82,6 +82,13 @@ export default class Circles extends Canvas2d {
 
   }
 
+  zoomInit(){
+    return {
+      plus: true,
+      minus: false
+    }
+  }
+
   zoomIn(){
     this.targetScale = Math.min(this.targetScale + this.deltaScale, this.maxScale)
     return {
@@ -136,7 +143,7 @@ export default class Circles extends Canvas2d {
       this.currentScale += this.scale
       this.scale += 1
       
-      if(Math.abs(this.scale - this.targetScale) < 0.001){
+      if(Math.abs(this.scale - this.targetScale) < 0.01){
         this.currentScale = this.targetScale
       }
 

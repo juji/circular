@@ -1,11 +1,15 @@
 
 
-export function ui({ zoomIn, zoomOut }:{
+export function ui({ zoomIn, zoomOut, zoomInit }:{
   zoomIn: () => {
     plus: boolean,
     minus: boolean
   },
   zoomOut: () => {
+    plus: boolean,
+    minus: boolean
+  },
+  zoomInit: {
     plus: boolean,
     minus: boolean
   }
@@ -52,5 +56,8 @@ export function ui({ zoomIn, zoomOut }:{
     if(minusEnabled) minus?.removeAttribute('disabled')
     else minus?.setAttribute('disabled','')
   })
+
+  if(!zoomInit.plus) plus?.setAttribute('disabled','')
+  if(!zoomInit.minus) minus?.setAttribute('disabled','')
 
 }

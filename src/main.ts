@@ -26,7 +26,8 @@ if(canvas) {
     
   ui({ 
     zoomIn: () => circles.zoomIn(), 
-    zoomOut: () => circles.zoomOut()
+    zoomOut: () => circles.zoomOut(),
+    zoomInit: circles.zoomInit()
   })
 
   // const clear = 

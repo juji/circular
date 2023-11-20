@@ -76,7 +76,7 @@ export default class Circle {
     if(this.speedScale !== 1 && this.speedScale !== -1){
       const target = this.speedScale / Math.abs(this.speedScale)
       this.speedScale += (target - this.speedScale) / 100
-      if(Math.abs(this.speedScale - target) < 0.1){
+      if(Math.abs(this.speedScale - target) < 0.01){
         this.speedScale = target
       }
     }
