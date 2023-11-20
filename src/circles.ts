@@ -137,7 +137,7 @@ export default class Circles extends Canvas2d {
 
   calculate(){
     
-    // calculate speed scale
+    // calculate speedScale
     if(this.speedScale !== 1 && this.speedScale !== -1){
       const target = this.speedScale / Math.abs(this.speedScale)
       this.speedScale += (target - this.speedScale) / 100
@@ -145,7 +145,7 @@ export default class Circles extends Canvas2d {
         this.speedScale = target
       }
     }
-    
+
     //
     let num = 0
     while(num<this.circles.length){
@@ -161,13 +161,21 @@ export default class Circles extends Canvas2d {
 
       let scale = (this.targetScale - this.currentScale) / 10
       this.currentScale += scale
-      this.scale = 1 + scale
+      
+      // this one, 
+      // makes it possible to go beyond on scale change
+      // it's a compunded scale (if that's a thing)
+      // the more you scale up and down, you actually go further
+      this.scale = 1 + scale 
+
       
       if(Math.abs(this.targetScale - this.currentScale) < 0.01){
         this.currentScale = this.targetScale
       }
 
-    }else{ this.scale = 0 }
+    }else{ 
+      this.scale = 0 
+    }
     
   }
 
