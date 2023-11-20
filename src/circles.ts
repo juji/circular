@@ -143,7 +143,7 @@ export default class Circles extends Canvas2d {
       this.currentScale += this.scale
       this.scale += 1
       
-      if(Math.abs(this.currentScale - this.targetScale) < 0.01){
+      if(Math.abs(this.targetScale - this.currentScale) < 0.01){
         this.currentScale = this.targetScale
       }
 
