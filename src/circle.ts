@@ -58,8 +58,6 @@ export default class Circle {
 
   calculate(){
 
-    // return;
-
     this.x = this.radiusX * Math.cos(this.radian)
     
     const y = this.radiusY * Math.sin(this.radian)
@@ -90,12 +88,13 @@ export default class Circle {
   }
 
   play( mouseSpeed: number ){
-    this.speedScale = mouseSpeed ? mouseSpeed * -7 : 0.001 // prevent zero, 7 is a magic number
+    // 7 is a magic number
+    this.speedScale = mouseSpeed ? mouseSpeed * -7 : 0.001 // prevent zero
     this.stopped = false
   }
 
   move(pixels:number){
-    this.radian -= pixels * 0.002 // magic number
+    this.radian -= pixels * 0.002 // one pixel is too big
   }
 
 }

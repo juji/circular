@@ -37,7 +37,9 @@ export default class Circles extends Canvas2d {
     )
 
     this.circles = [...new Array(1000)].map(() => {
+      
       const radiusX = Math.random() * Math.max(this.canvas.width/2,1000)
+      
       return new Circle({
         initRadian: Math.random() * 9,
         centerY: (
@@ -48,11 +50,12 @@ export default class Circles extends Canvas2d {
         radiusY: radiusX / 3,
         speed: 0.001 + Math.random() * 0.002,
         direction: 1,
-        ballRadius: 1 + (Math.random() * 2),
-        scaleMin: 0.3 + (Math.random() * 0.2),
+        ballRadius: 1 + Math.random() * 2,
+        scaleMin: 0.3 + Math.random() * 0.2,
         scaleRange: 0.3,
         color: randomColor()
       })
+
     })
 
     this.start()
@@ -80,7 +83,6 @@ export default class Circles extends Canvas2d {
   }
 
   zoomIn(){
-    // max scale: 4
     this.targetScale = Math.min(this.targetScale + this.deltaScale, this.maxScale)
     return {
       plus: this.targetScale < this.maxScale,
@@ -89,7 +91,6 @@ export default class Circles extends Canvas2d {
   }
 
   zoomOut(){
-    // min scale: 1
     this.targetScale = Math.max(this.targetScale - this.deltaScale, this.minScale)
     return {
       plus: this.targetScale < this.maxScale,
@@ -123,7 +124,6 @@ export default class Circles extends Canvas2d {
 
   calculate(){
     
-    
     let num = 0
     while(num<this.circles.length){
       this.circles[num].calculate()
@@ -143,6 +143,7 @@ export default class Circles extends Canvas2d {
     }else{
       this.scale = 0
     }
+    
   }
 
   draw(){
