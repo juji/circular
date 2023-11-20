@@ -3,8 +3,6 @@
 import './index.css'
 import './button.css'
 
-// import Ball from './ball'
-// import Circular from './circular'
 import Circles from './circles'
 import { registerEvents } from './events'
 import { ui } from './ui'
