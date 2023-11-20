@@ -121,6 +121,7 @@ export default class Circles extends Canvas2d {
     
     let num = 0
     while(num<this.circles.length){
+      this.circles[num].speedScale = this.speedScale
       this.circles[num].play()
       num++
     }
