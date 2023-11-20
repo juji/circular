@@ -119,7 +119,14 @@ header svg{
 
     & > p {
       padding: 0;
-      margin: 0;
+      margin: 1rem;
+
+      /* &:first-child{
+        margin-top: 0rem;
+      }
+      &:last-child{
+        margin-bottom: 0rem;
+      } */
     }
 
   }
