@@ -23,6 +23,8 @@ export default class Circles extends Canvas2d {
   minScale: number = 1
   deltaScale: number = 1
 
+  wait: number = 0
+
   constructor(
     canvas: HTMLCanvasElement,
     width: number,
@@ -73,6 +75,14 @@ export default class Circles extends Canvas2d {
   }
 
   start(){
+
+    if(this.wait < 64){
+      this.wait++;
+      this.anim = requestAnimationFrame(() => {
+        this.start()
+      })
+      return;
+    }
 
     this.calculate()
     this.draw()
@@ -156,6 +166,9 @@ export default class Circles extends Canvas2d {
   draw(){
 
     const ctx = this.context
+    if(this.scale)
+      ctx.scale(this.scale, this.scale)
+    
     ctx.clearRect(
       -this.canvas.width,
       -this.canvas.height,
@@ -163,8 +176,6 @@ export default class Circles extends Canvas2d {
       this.canvas.height*2
     )
 
-    if(this.scale)
-      ctx.scale(this.scale, this.scale)
 
     let num = 0
     while(num<this.circles.length){
