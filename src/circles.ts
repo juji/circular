@@ -131,12 +131,14 @@ export default class Circles extends Canvas2d {
 
   calculate(){
     
+    //
     let num = 0
     while(num<this.circles.length){
       this.circles[num].calculate()
       num++
     }
 
+    // calculate current scale
     if(this.targetScale !== this.currentScale){
 
       this.scale = (this.targetScale - this.currentScale) / 10
@@ -147,9 +149,7 @@ export default class Circles extends Canvas2d {
         this.currentScale = this.targetScale
       }
 
-    }else{
-      this.scale = 0
-    }
+    }else{ this.scale = 0 }
     
   }
 
