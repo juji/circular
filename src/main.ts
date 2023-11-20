@@ -2,6 +2,7 @@
 
 import './index.css'
 import './button.css'
+import './info-button.css'
 
 import Circles from './circles'
 import { registerEvents } from './events'

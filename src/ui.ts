@@ -22,6 +22,8 @@ export function ui({ zoomIn, zoomOut, zoomInit }:{
 
   let to: ReturnType<typeof setTimeout>
   info?.addEventListener('click', () => { 
+
+    info.classList.toggle('on')
     
     content?.classList.toggle('on')
     to && clearTimeout(to)
@@ -29,6 +31,7 @@ export function ui({ zoomIn, zoomOut, zoomInit }:{
     if(content?.classList.contains('on')) {
       to = setTimeout(() => {
         content?.classList.remove('on')
+        info.classList.remove('on')
       }, 10000)
     }
   })
