@@ -18,11 +18,11 @@ export default class Circles extends Canvas2d {
   currentScale: number = 1
   targetScale: number = 1
   scale: number = 0
-  calculatedScale: number = 0
 
   maxScale: number = 4
   minScale: number = 1
   deltaScale: number = 1
+  speedScale: number = 1
 
   constructor(
     canvas: HTMLCanvasElement,
@@ -115,9 +115,13 @@ export default class Circles extends Canvas2d {
   }
 
   play( mouseSpeed: number ){
+    
+    // 7 is a magic number
+    this.speedScale = mouseSpeed ? mouseSpeed * -7 : 0.001 // prevent zero
+    
     let num = 0
     while(num<this.circles.length){
-      this.circles[num].play( mouseSpeed )
+      this.circles[num].play()
       num++
     }
   }
@@ -135,8 +139,19 @@ export default class Circles extends Canvas2d {
     //
     let num = 0
     while(num<this.circles.length){
+      if(this.circles[num].speedScale !== this.speedScale)
+        this.circles[num].speedScale = this.speedScale
       this.circles[num].calculate()
       num++
+    }
+
+    // calculate speed scale
+    if(this.speedScale !== 1 && this.speedScale !== -1){
+      const target = this.speedScale / Math.abs(this.speedScale)
+      this.speedScale += (target - this.speedScale) / 100
+      if(Math.abs(this.speedScale - target) < 0.01){
+        this.speedScale = target
+      }
     }
 
     // calculate current scale
@@ -144,12 +159,10 @@ export default class Circles extends Canvas2d {
 
       let scale = (this.targetScale - this.currentScale) / 10
       this.currentScale += scale
-      this.calculatedScale += scale
       this.scale = 1 + scale
       
       if(Math.abs(this.targetScale - this.currentScale) < 0.01){
         this.currentScale = this.targetScale
-        this.calculatedScale = 0
       }
 
     }else{ this.scale = 0 }

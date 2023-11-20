@@ -76,24 +76,13 @@ export default class Circle {
     if(this.stopped) return;
     this.radian += this.speed * this.direction * this.speedScale
 
-    // ease speedscale to 1 or -1
-    if(this.speedScale !== 1 && this.speedScale !== -1){
-      const target = this.speedScale / Math.abs(this.speedScale)
-      this.speedScale += (target - this.speedScale) / 100
-      if(Math.abs(this.speedScale - target) < 0.01){
-        this.speedScale = target
-      }
-    }
-
   }
 
   pause(){
     this.stopped = true
   }
 
-  play( mouseSpeed: number ){
-    // 7 is a magic number
-    this.speedScale = mouseSpeed ? mouseSpeed * -7 : 0.001 // prevent zero
+  play(){
     this.stopped = false
   }
 
