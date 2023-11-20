@@ -18,12 +18,11 @@ export default class Circles extends Canvas2d {
   currentScale: number = 1
   targetScale: number = 1
   scale: number = 0
+  calculatedScale: number = 0
 
   maxScale: number = 4
   minScale: number = 1
   deltaScale: number = 1
-
-  wait: number = 0
 
   constructor(
     canvas: HTMLCanvasElement,
@@ -32,11 +31,6 @@ export default class Circles extends Canvas2d {
   ){
 
     super(canvas, width, height)
-
-    this.context.translate(
-      this.canvas.width/2,
-      this.canvas.height/2
-    )
 
     this.circles = [...new Array(1000)].map(() => {
       
@@ -60,8 +54,16 @@ export default class Circles extends Canvas2d {
 
     })
 
-    this.start()
+    this.init()
 
+  }
+
+  init(){
+    this.context.translate(
+      this.canvas.width/2,
+      this.canvas.height/2
+    )
+    this.start()
   }
 
   onResize(): void {
@@ -69,20 +71,9 @@ export default class Circles extends Canvas2d {
       this.canvas.width/2,
       this.canvas.height/2
     )
-    this.scale && this.context.scale(
-      this.scale, this.scale
-    )
   }
 
   start(){
-
-    if(this.wait < 64){
-      this.wait++;
-      this.anim = requestAnimationFrame(() => {
-        this.start()
-      })
-      return;
-    }
 
     this.calculate()
     this.draw()
@@ -151,12 +142,14 @@ export default class Circles extends Canvas2d {
     // calculate current scale
     if(this.targetScale !== this.currentScale){
 
-      this.scale = (this.targetScale - this.currentScale) / 10
-      this.currentScale += this.scale
-      this.scale += 1
+      let scale = (this.targetScale - this.currentScale) / 10
+      this.currentScale += scale
+      this.calculatedScale += scale
+      this.scale = 1 + scale
       
       if(Math.abs(this.targetScale - this.currentScale) < 0.01){
         this.currentScale = this.targetScale
+        this.calculatedScale = 0
       }
 
     }else{ this.scale = 0 }
@@ -165,17 +158,11 @@ export default class Circles extends Canvas2d {
 
   draw(){
 
+    this.clean()
     const ctx = this.context
+
     if(this.scale)
       ctx.scale(this.scale, this.scale)
-    
-    ctx.clearRect(
-      -this.canvas.width,
-      -this.canvas.height,
-      this.canvas.width*2,
-      this.canvas.height*2
-    )
-
 
     let num = 0
     while(num<this.circles.length){

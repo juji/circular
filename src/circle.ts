@@ -48,9 +48,9 @@ export default class Circle {
   }){
 
     if(typeof initRadian !== 'undefined') this.radian = initRadian
-    if(typeof radiusX !== 'undefined') this.targetRadiusX = radiusX
-    if(typeof radiusY !== 'undefined') this.targetRadiusY = radiusY
-    if(typeof centerY !== 'undefined') this.targetCenterY = centerY
+    if(typeof radiusX !== 'undefined') this.radiusX = radiusX
+    if(typeof radiusY !== 'undefined') this.radiusY = radiusY
+    if(typeof centerY !== 'undefined') this.centerY = centerY
     if(typeof speed !== 'undefined') this.speed = speed
     if(typeof direction !== 'undefined') this.direction = direction
     if(typeof ballRadius !== 'undefined') this.ballRadius = ballRadius
@@ -83,25 +83,6 @@ export default class Circle {
       if(Math.abs(this.speedScale - target) < 0.01){
         this.speedScale = target
       }
-    }
-
-    // ease radius to targetRadius and center to targetCenter
-    if(this.radiusX !== this.targetRadiusX){
-      this.radiusX += (this.targetRadiusX - this.radiusX) / 500
-      if(Math.abs((this.targetRadiusX - this.radiusX)) < 0.001)
-        this.radiusX = this.targetRadiusX
-    }
-
-    if(this.radiusY !== this.targetRadiusY){
-      this.radiusY += (this.targetRadiusY - this.radiusY) / 200
-      if(Math.abs((this.targetRadiusY - this.radiusY)) < 0.001)
-        this.radiusY = this.targetRadiusY
-    }
-
-    if(this.centerY !== this.targetCenterY){
-      this.centerY += (this.targetCenterY - this.centerY) / 500
-      if(Math.abs((this.targetCenterY - this.centerY)) < 0.001)
-        this.centerY = this.targetCenterY
     }
 
   }

@@ -29,7 +29,7 @@ export function ui({ zoomIn, zoomOut, zoomInit }:{
     if(content?.classList.contains('on')) {
       to = setTimeout(() => {
         content?.classList.remove('on')
-      }, 5000)
+      }, 10000)
     }
   })
 
