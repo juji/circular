@@ -4,10 +4,6 @@ export default class Circle {
   radiusY: number = 0
   centerY: number = 0
 
-  targetRadiusX: number = 200
-  targetRadiusY: number = 100
-  targetCenterY: number = 0
-
   speed: number = 0.1
   direction: 1|-1 = -1
   ballRadius: number = 21
