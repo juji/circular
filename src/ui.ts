@@ -36,16 +36,45 @@ export function ui({ zoomIn, zoomOut, zoomInit }:{
     }
   })
 
+  function setZoomButton(plusEnabled:boolean, minusEnabled:boolean){
+    if(plusEnabled) plus?.removeAttribute('disabled')
+    else plus?.setAttribute('disabled','')
+    if(minusEnabled) minus?.removeAttribute('disabled')
+    else minus?.setAttribute('disabled','')
+  }
+
+  let wheelListener = true
+  window.addEventListener('wheel', (e: WheelEvent) => {
+    if(!wheelListener) return;
+    wheelListener = false
+
+    if(e.deltaY > 0){
+      const {
+        plus: plusEnabled,
+        minus: minusEnabled
+      } = zoomIn()
+      setZoomButton(plusEnabled, minusEnabled)
+    }
+
+    if(e.deltaY < 0){
+      const {
+        plus: plusEnabled,
+        minus: minusEnabled
+      } = zoomOut()
+      setZoomButton(plusEnabled, minusEnabled)
+    }
+
+    setTimeout(() => {
+      wheelListener = true
+    },300)
+  })
+
   plus?.addEventListener('click', () => {
     const {
       plus: plusEnabled,
       minus: minusEnabled
     } = zoomIn()
-
-    if(plusEnabled) plus.removeAttribute('disabled')
-    else plus.setAttribute('disabled','')
-    if(minusEnabled) minus?.removeAttribute('disabled')
-    else minus?.setAttribute('disabled','')
+    setZoomButton(plusEnabled, minusEnabled)
   })
 
   minus?.addEventListener('click', () => {
@@ -53,11 +82,7 @@ export function ui({ zoomIn, zoomOut, zoomInit }:{
       plus: plusEnabled,
       minus: minusEnabled
     } = zoomOut()
-
-    if(plusEnabled) plus?.removeAttribute('disabled')
-    else plus?.setAttribute('disabled','')
-    if(minusEnabled) minus?.removeAttribute('disabled')
-    else minus?.setAttribute('disabled','')
+    setZoomButton(plusEnabled, minusEnabled)
   })
 
   if(!zoomInit.plus) plus?.setAttribute('disabled','')
