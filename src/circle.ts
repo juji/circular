@@ -58,6 +58,7 @@ export default class Circle {
 
   calculate(){
 
+    if(this.stopped) return;
     this.x = this.radiusX * Math.cos(this.radian)
     
     const y = this.radiusY * Math.sin(this.radian)
@@ -69,7 +70,6 @@ export default class Circle {
       )
     )
     
-    if(this.stopped) return;
     this.radian += this.speed * this.direction * this.speedScale
 
   }
